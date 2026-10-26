@@ -34,6 +34,7 @@
   // ── Rolagem: linha das etapas (e progresso, Task 6) ──
   var etapas = document.querySelector('.etapas');
   var linha = document.querySelector('.etapas-linha span');
+  var progresso = document.querySelector('.brand-progress');
   var agendado = false;
 
   function limitar(v) { return Math.min(1, Math.max(0, v)); }
@@ -45,7 +46,11 @@
       var r = etapas.getBoundingClientRect();
       linha.style.transform = 'scaleY(' + limitar((vh * 0.6 - r.top) / r.height).toFixed(3) + ')';
     }
-    // (Task 6: progresso da barra)
+    if (progresso) {
+      var max = document.documentElement.scrollHeight - vh;
+      var f = max > 0 ? limitar(window.scrollY / max) : 1;
+      progresso.style.clipPath = 'inset(0 ' + ((1 - f) * 100).toFixed(1) + '% 0 0)';
+    }
   }
 
   window.addEventListener('scroll', function () {
@@ -54,5 +59,25 @@
   window.addEventListener('resize', aoRolar);
   aoRolar();
 
-  // ── (Tasks 5–7 continuam aqui) ──
+  revelar('.gantt', { threshold: 0.3 });
+
+  // ── Índice ──
+  var links = document.querySelectorAll('.indice a');
+  if (links.length && temIO) {
+    var ioIndice = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        links.forEach(function (a) {
+          if (a.getAttribute('href') === '#' + en.target.id) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    links.forEach(function (a) {
+      var alvo = document.querySelector(a.getAttribute('href'));
+      if (alvo) ioIndice.observe(alvo);
+    });
+  }
+
+  // ── (Task 7 continua aqui) ──
 })();

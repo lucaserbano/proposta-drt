@@ -33,7 +33,16 @@
     </div>
   </header>
 
-  <!-- ÍNDICE (Task 6) -->
+  <nav class="indice" aria-label="Sumário da proposta">
+    <ol>
+      <li><a href="#objetivos" style="--c: var(--cyan)"><span>1</span>Objetivos</a></li>
+      <li><a href="#etapas" style="--c: var(--magenta)"><span>2</span>Etapas do projeto</a></li>
+      <li><a href="#entregaveis" style="--c: var(--yellow)"><span>3</span>Entregáveis</a></li>
+      <li><a href="#opcionais" style="--c: var(--cyan)"><span>4</span>Opcionais</a></li>
+      <li><a href="#prazos" style="--c: var(--magenta)"><span>5</span>Prazo e linha do tempo</a></li>
+      <li><a href="#investimento" style="--c: var(--yellow)"><span>6</span>Investimento</a></li>
+    </ol>
+  </nav>
 
   <main>
 
@@ -216,6 +225,36 @@
           </article>
         </div>
         <p class="note" data-reveal>*Custos de hospedagem, domínio e ferramenta de inscrição são cobrados à parte.</p>
+      </div>
+    </section>
+
+    <!-- PRAZOS · slide 8 -->
+    <section class="section" id="prazos">
+      <div class="wrap">
+        <p class="f-label" data-reveal>5. Prazo e linha do tempo</p>
+        <h2 class="f-head section-title" data-reveal>6 a 8 semanas</h2>
+        <p class="section-sub" data-reveal>A estimativa de tempo para realização do projeto é de 6-8 semanas, considerando as conversas de alinhamento, o processo criativo, as rodadas de avaliação e aprovação e a geração dos arquivos finais.</p>
+
+        <div class="gantt" role="img" aria-label="Cronograma: Briefing nas semanas 1 e 2 de novembro; Criação nas semanas 3 e 4 de novembro e na semana 1 de dezembro; Ajustes nas semanas 2 e 3 de dezembro; Finalização na semana 4 de dezembro de 2026.">
+          <div class="gantt-cab gantt-meses" aria-hidden="true">
+            <span class="mes" style="grid-column: 2 / span 4">Novembro/26</span>
+            <span class="mes" style="grid-column: 6 / span 4">Dezembro/26</span>
+          </div>
+          <div class="gantt-cab gantt-semanas" aria-hidden="true">
+            <span style="grid-column: 2"><span class="sem-longo">Semana </span><span class="sem-curto">S</span>1</span>
+            <span><span class="sem-longo">Semana </span><span class="sem-curto">S</span>2</span>
+            <span><span class="sem-longo">Semana </span><span class="sem-curto">S</span>3</span>
+            <span><span class="sem-longo">Semana </span><span class="sem-curto">S</span>4</span>
+            <span><span class="sem-longo">Semana </span><span class="sem-curto">S</span>1</span>
+            <span><span class="sem-longo">Semana </span><span class="sem-curto">S</span>2</span>
+            <span><span class="sem-longo">Semana </span><span class="sem-curto">S</span>3</span>
+            <span><span class="sem-longo">Semana </span><span class="sem-curto">S</span>4</span>
+          </div>
+          <div class="gantt-linha" aria-hidden="true"><span class="gantt-rotulo">Briefing</span><span class="gantt-barra" style="grid-column: 2 / 4; --c: var(--cyan); --i: 0"></span></div>
+          <div class="gantt-linha" aria-hidden="true"><span class="gantt-rotulo">Criação</span><span class="gantt-barra" style="grid-column: 4 / 7; --c: var(--magenta); --i: 1"></span></div>
+          <div class="gantt-linha" aria-hidden="true"><span class="gantt-rotulo">Ajustes</span><span class="gantt-barra" style="grid-column: 7 / 9; --c: var(--yellow); --i: 2"></span></div>
+          <div class="gantt-linha" aria-hidden="true"><span class="gantt-rotulo">Finalização</span><span class="gantt-barra" style="grid-column: 9 / 10; --c: var(--white); --i: 3"></span></div>
+        </div>
       </div>
     </section>
 
