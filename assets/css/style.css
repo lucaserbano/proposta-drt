@@ -309,6 +309,94 @@ strong { font-weight: 700; }
 .js .gantt.is-visible .gantt-barra { transform: none; }
 .sem-curto { display: none; }
 
+/* Investimento */
+.invest { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); margin-top: var(--space-4); }
+.base { padding: var(--space-4) var(--space-3); background: var(--surface); border: 1px solid var(--line); }
+.base-topo { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+.base-titulo { font-size: 28px; }
+.selo { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan); padding: 6px 10px; white-space: nowrap; }
+.base-preco, .resumo-valor strong, .barra-total strong { font-family: var(--font-head); font-stretch: condensed; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
+.base-preco { font-size: 56px; margin-top: var(--space-3); }
+.base-preco .cur { font-size: 20px; vertical-align: 0.9em; margin-right: 6px; color: var(--text-2); }
+
+.desconto {
+  margin-top: var(--space-4);
+  padding: var(--space-4) var(--space-3);
+  border: 1px solid rgba(255, 255, 0, 0.35);
+  background: radial-gradient(120% 140% at 100% 0%, rgba(255, 255, 0, 0.12) 0%, transparent 55%), var(--surface);
+  box-shadow: 0 30px 80px -40px rgba(255, 255, 0, 0.35);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.desconto.is-completo { border-color: var(--yellow); box-shadow: 0 30px 90px -30px rgba(255, 255, 0, 0.55); }
+.desconto-tag { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--yellow); font-weight: 400; margin-bottom: var(--space-1); }
+.desconto-titulo { font-size: clamp(26px, 4.5vw, 40px); margin-bottom: var(--space-2); max-width: 16em; }
+.desconto-precos { color: var(--text-body); font-size: 17px; }
+.desconto-precos s { color: var(--text-2); }
+.desconto-precos strong { color: var(--yellow); font-weight: 700; }
+.desconto-progresso { height: 4px; background: #262626; margin: var(--space-3) 0 var(--space-1); overflow: hidden; }
+.desconto-progresso span { display: block; height: 100%; background: var(--yellow); transform-origin: left; transform: scaleX(var(--p, 0)); transition: transform 0.5s var(--ease); }
+.desconto-status { font-size: 14px; color: var(--text-2); font-weight: 400; margin-bottom: var(--space-3); }
+.desconto.is-completo .desconto-status { color: var(--yellow); }
+
+.opcoes { border: 0; margin-top: var(--space-5); min-width: 0; }
+.opcoes legend { padding: 0; }
+.grupo { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c); font-weight: 400; margin: var(--space-4) 0 var(--space-2); }
+.opcao {
+  position: relative;
+  display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: var(--space-2); row-gap: var(--space-1); align-items: start;
+  padding: var(--space-3) var(--space-2);
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+.opcao:hover { border-color: #333; }
+.opcao input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.opcao-caixa { width: 24px; height: 24px; margin-top: 1px; border: 2px solid #555; display: grid; place-items: center; transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease); }
+.opcao-caixa::after { content: ""; width: 6px; height: 12px; border: solid var(--black); border-width: 0 3px 3px 0; transform: translateY(-1px) rotate(45deg) scale(0.4); opacity: 0; transition: opacity 0.2s var(--ease), transform 0.25s var(--ease); }
+.opcao input:checked ~ .opcao-caixa { background: var(--c); border-color: var(--c); }
+.opcao input:checked ~ .opcao-caixa::after { opacity: 1; transform: translateY(-1px) rotate(45deg) scale(1); }
+.opcao input:focus-visible ~ .opcao-caixa { outline: 2px solid var(--cyan); outline-offset: 3px; }
+.opcao:has(input:checked) { border-color: color-mix(in srgb, var(--c) 55%, transparent); background: color-mix(in srgb, var(--c) 7%, rgb(10, 10, 10)); }
+.opcao-texto { color: var(--text-body); font-size: 15px; font-weight: 400; line-height: 1.5; }
+.opcao-texto small { display: block; color: var(--text-2); font-size: 12px; margin-top: 6px; }
+.opcao-preco { grid-column: 2; font-family: var(--font-head); font-stretch: condensed; font-weight: 900; font-size: 22px; white-space: nowrap; }
+
+.resumo { padding: var(--space-4) var(--space-3); background: var(--surface); border: 1px solid var(--line); }
+.resumo-linhas li { display: flex; justify-content: space-between; gap: var(--space-2); padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--text-body); font-weight: 400; }
+.resumo-linhas li span:last-child { white-space: nowrap; color: var(--white); }
+.resumo-total { margin: var(--space-3) 0; }
+.resumo-total-rotulo { display: block; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-2); }
+#total-cheio { display: block; color: var(--text-2); font-size: 18px; margin-top: var(--space-1); }
+#total-cheio[hidden] { display: none; }
+.resumo-valor { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.resumo-valor strong { font-size: 52px; }
+.resumo.is-completo .resumo-valor strong { color: var(--yellow); }
+.selo-desc { background: var(--yellow); color: var(--black); font-weight: 900; font-size: 12px; letter-spacing: 0.1em; padding: 5px 8px; }
+
+.barra-total {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 950;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);
+  padding: 12px var(--space-2) calc(12px + env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.94);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border-top: 1px solid #222;
+  transform: translateY(100%); visibility: hidden;
+  transition: transform 0.4s var(--ease), visibility 0.4s;
+}
+.barra-total.is-on { transform: none; visibility: visible; }
+.barra-total p { display: flex; align-items: baseline; gap: var(--space-1); white-space: nowrap; }
+.barra-total .btn { white-space: nowrap; padding: 12px 16px; }
+.barra-total span { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-2); }
+.barra-total strong { font-size: 28px; }
+
+/* Fechamento */
+.fechamento { text-align: center; padding-top: var(--space-7); }
+.fechamento-titulo { font-size: clamp(56px, 14vw, 140px); margin-bottom: var(--space-3); }
+.fechamento-sub { font-size: clamp(18px, 2.4vw, 24px); color: var(--text-body); margin-bottom: var(--space-4); }
+.fechamento-links { display: flex; justify-content: center; gap: var(--space-4); margin: var(--space-5) 0 var(--space-3); }
+
 /* Índice lateral */
 .indice { display: none; }
 
@@ -331,6 +419,9 @@ strong { font-weight: 700; }
   .mockups { padding: var(--space-5); }
   .mockups-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .momentos { grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .opcao { grid-template-columns: 28px minmax(0, 1fr) auto; padding: var(--space-3); }
+  .opcao-preco { grid-column: 3; grid-row: 1; }
+  .base, .desconto, .resumo { padding: var(--space-4); }
 }
 
 /* ── Desktop ── */
@@ -341,6 +432,9 @@ strong { font-weight: 700; }
   .objetivo-largo { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-6); }
   .objetivo-largo .num { grid-column: 1 / -1; }
   .mockups { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-5); align-items: start; }
+  .invest { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; }
+  .resumo { position: sticky; top: calc(var(--nav-h) + 32px); }
+  .barra-total { display: none; }
   .footer-inner { flex-direction: row; align-items: center; justify-content: space-between; }
 }
 
@@ -370,4 +464,5 @@ strong { font-weight: 700; }
   .etapa .etapa-no { border-color: var(--c); background: var(--c); animation: none !important; transition: none; }
   .js .gantt-barra { transform: none; transition: none; }
   .indice a, .indice a::before { transition: none; }
+  .opcao, .opcao-caixa, .opcao-caixa::after, .desconto, .desconto-progresso span, .barra-total { transition: none; }
 }

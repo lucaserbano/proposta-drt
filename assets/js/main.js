@@ -79,5 +79,106 @@
     });
   }
 
-  // ── (Task 7 continua aqui) ──
+  // ── WhatsApp geral ──
+  var P = window.Pacote;
+  document.querySelectorAll('[data-wa="geral"]').forEach(function (a) { a.href = P.linkWhatsApp(P.MSG_GERAL); });
+
+  // ── Monte seu pacote ──
+  var caixas = Array.prototype.slice.call(document.querySelectorAll('input[name="opcional"]'));
+  var elTotal = document.getElementById('total');
+  var elCheio = document.getElementById('total-cheio');
+  var elSelo = document.getElementById('selo-desc');
+  var elLinhas = document.getElementById('resumo-linhas');
+  var elStatus = document.getElementById('desconto-status');
+  var elBarraValor = document.getElementById('barra-total-valor');
+  var elAnuncio = document.getElementById('anuncio');
+  var btnTodos = document.getElementById('marcar-todos');
+  var desconto = document.querySelector('.desconto');
+  var resumo = document.querySelector('.resumo');
+  var exibido = P.ENTREGAVEIS;
+  var quadro = 0;
+
+  function selecionados() {
+    return caixas.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+  }
+
+  function escreverTotal(valor) {
+    exibido = valor;
+    var texto = P.formatar(valor);
+    elTotal.textContent = texto;
+    elBarraValor.textContent = texto;
+  }
+
+  function animarTotal(destino) {
+    window.cancelAnimationFrame(quadro);
+    var origem = exibido;
+    if (reduz || origem === destino) { escreverTotal(destino); return; }
+    var inicio = performance.now();
+    function passo(agora) {
+      var k = Math.min(1, (agora - inicio) / 400);
+      var suave = 1 - Math.pow(1 - k, 3);
+      escreverTotal(Math.round(origem + (destino - origem) * suave));
+      if (k < 1) quadro = window.requestAnimationFrame(passo);
+    }
+    quadro = window.requestAnimationFrame(passo);
+  }
+
+  function linhaResumo(nome, valor) {
+    var li = document.createElement('li');
+    var a = document.createElement('span');
+    var b = document.createElement('span');
+    a.textContent = nome;
+    b.textContent = P.formatar(valor);
+    li.appendChild(a);
+    li.appendChild(b);
+    return li;
+  }
+
+  function atualizar() {
+    var ids = selecionados();
+    var r = P.calcular(ids);
+    var n = P.OPCIONAIS.length - r.faltam;
+
+    elLinhas.textContent = '';
+    elLinhas.appendChild(linhaResumo('Entregáveis', P.ENTREGAVEIS));
+    r.marcados.forEach(function (o) { elLinhas.appendChild(linhaResumo(o.curto, o.valor)); });
+
+    elCheio.hidden = !r.completo;
+    elCheio.textContent = P.formatar(r.cheio);
+    elSelo.hidden = !r.completo;
+    resumo.classList.toggle('is-completo', r.completo);
+    desconto.classList.toggle('is-completo', r.completo);
+    desconto.style.setProperty('--p', n / P.OPCIONAIS.length);
+
+    elStatus.textContent = r.completo
+      ? '✓ Desconto de 12,5% aplicado'
+      : n + ' de 5 opcionais selecionados · ' + (r.faltam === 1 ? 'falta 1' : 'faltam ' + r.faltam) + ' para o desconto';
+    btnTodos.textContent = r.completo ? 'Desmarcar todos' : 'Marcar todos (pacote completo)';
+
+    animarTotal(r.total);
+    elAnuncio.textContent = 'Total: ' + P.formatar(r.total) + (r.completo ? ', com 12,5% de desconto' : '');
+
+    var link = P.linkWhatsApp(P.mensagem(ids));
+    document.querySelectorAll('[data-wa="pacote"]').forEach(function (a) { a.href = link; });
+  }
+
+  caixas.forEach(function (c) { c.addEventListener('change', atualizar); });
+  btnTodos.addEventListener('click', function () {
+    var marcar = !P.calcular(selecionados()).completo;
+    caixas.forEach(function (c) { c.checked = marcar; });
+    atualizar();
+  });
+  atualizar();
+  elAnuncio.textContent = '';
+
+  // ── Barra de total no celular ──
+  var barra = document.querySelector('.barra-total');
+  var opcoes = document.querySelector('.opcoes');
+  if (barra && temIO) {
+    var noInvest = false;
+    var resumoVisivel = false;
+    var aplicarBarra = function () { barra.classList.toggle('is-on', noInvest && !resumoVisivel); };
+    new IntersectionObserver(function (en) { noInvest = en[0].isIntersecting; aplicarBarra(); }).observe(opcoes);
+    new IntersectionObserver(function (en) { resumoVisivel = en[0].isIntersecting; aplicarBarra(); }, { threshold: 0.2 }).observe(resumo);
+  }
 })();
