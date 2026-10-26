@@ -29,5 +29,30 @@
 
   revelar('[data-reveal]', { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
-  // ── (Tasks 4–7 continuam aqui) ──
+  revelar('.etapa', { threshold: 0, rootMargin: '0px 0px -40% 0px' });
+
+  // ── Rolagem: linha das etapas (e progresso, Task 6) ──
+  var etapas = document.querySelector('.etapas');
+  var linha = document.querySelector('.etapas-linha span');
+  var agendado = false;
+
+  function limitar(v) { return Math.min(1, Math.max(0, v)); }
+
+  function aoRolar() {
+    agendado = false;
+    var vh = window.innerHeight;
+    if (linha && !reduz) {
+      var r = etapas.getBoundingClientRect();
+      linha.style.transform = 'scaleY(' + limitar((vh * 0.6 - r.top) / r.height).toFixed(3) + ')';
+    }
+    // (Task 6: progresso da barra)
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!agendado) { agendado = true; window.requestAnimationFrame(aoRolar); }
+  }, { passive: true });
+  window.addEventListener('resize', aoRolar);
+  aoRolar();
+
+  // ── (Tasks 5–7 continuam aqui) ──
 })();
