@@ -269,11 +269,43 @@ strong { font-weight: 700; }
 .no-js .etapas-linha span { transform: none; }
 .no-js .etapa-no { border-color: var(--c); background: var(--c); }
 
+/* Entregáveis */
+.entregaveis { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-top: var(--space-5); }
+.entregavel .entregavel-glifo {
+  font-family: var(--font-head); font-stretch: condensed; font-weight: 900; font-size: 72px; line-height: 1;
+  color: var(--black); -webkit-text-stroke: 2px var(--c); paint-order: stroke fill; margin-bottom: var(--space-3); max-width: none;
+}
+.paleta { display: flex; gap: 8px; height: 72px; align-items: flex-end; }
+.paleta i { display: block; width: 28px; height: 28px; background: var(--black); border: 2px solid var(--c); }
+.paleta i:nth-child(2n) { height: 44px; }
+.paleta i:nth-child(3n) { height: 60px; }
+.entregavel-titulo { font-size: clamp(28px, 4.5vw, 40px); margin-bottom: var(--space-2); }
+.entregavel p { color: var(--text-body); font-size: 16px; max-width: 30em; }
+.entregavel-extra { margin-top: var(--space-3); font-size: 14px !important; color: var(--text-2) !important; }
+.formatos { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); }
+.formatos li { border: 1px solid #333; padding: 6px 12px; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); }
+
+.mockups { margin-top: var(--space-6); padding: var(--space-5) var(--space-3); background: var(--surface); border: 1px solid var(--line); }
+.mockups-intro p { color: var(--text-body); font-size: 16px; margin-bottom: var(--space-4); }
+.mockups-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+.mockups-lista li { border: 1px solid #262626; padding: var(--space-3) var(--space-2); font-size: 14px; font-weight: 400; color: var(--white); line-height: 1.4; min-height: 96px; display: flex; align-items: flex-end; overflow-wrap: break-word; }
+
+/* Opcionais */
+.momentos { display: grid; grid-template-columns: 1fr; gap: var(--space-5); }
+.momento { padding: var(--space-4) var(--space-3); background: var(--surface); border: 1px solid var(--line); }
+.momento-n { display: block; font-family: var(--font-head); font-stretch: condensed; font-weight: 900; font-size: 56px; line-height: 1; color: var(--c); margin-bottom: var(--space-2); }
+.momento-titulo { font-size: 28px; margin-bottom: var(--space-3); }
+.momento .lista li::before { background: var(--c); }
+
 /* ── Tablet+ ── */
 @media (min-width: 720px) {
   .wrap { padding: 0 var(--space-4); }
   .section { padding-top: var(--space-7); }
   .etapa { padding-left: 88px; padding-bottom: var(--space-7); }
+  .entregaveis { grid-template-columns: 1fr 1fr; column-gap: var(--space-6); row-gap: var(--space-6); }
+  .mockups { padding: var(--space-5); }
+  .mockups-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .momentos { grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
 }
 
 /* ── Desktop ── */
@@ -283,6 +315,7 @@ strong { font-weight: 700; }
   .objetivos { grid-template-columns: 1fr 1fr; column-gap: var(--space-6); row-gap: var(--space-7); }
   .objetivo-largo { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-6); }
   .objetivo-largo .num { grid-column: 1 / -1; }
+  .mockups { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-5); align-items: start; }
   .footer-inner { flex-direction: row; align-items: center; justify-content: space-between; }
 }
 
