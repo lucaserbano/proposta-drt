@@ -232,8 +232,24 @@ strong { font-weight: 700; }
 @keyframes rise { to { opacity: 1; transform: none; } }
 @keyframes riseCentro { to { opacity: 1; transform: translate(-50%, 0); } }
 
-/* ── Revelação padrão (Task 3) ── */
+/* ── Revelação padrão ── */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transition-delay: calc(var(--i, 0) * 0.1s);
+}
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
+
 /* ── Seções específicas (Tasks 3–7) ── */
+
+/* Objetivos */
+.objetivos { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-top: var(--space-4); }
+.objetivo .num { display: block; font-family: var(--font-head); font-stretch: condensed; font-weight: 900; font-size: 14px; letter-spacing: 0.3em; color: var(--c); margin-bottom: var(--space-2); }
+.objetivo-q { font-size: clamp(30px, 6vw, 52px); margin-bottom: var(--space-3); max-width: 14em; }
+.objetivo p { color: var(--text-body); font-size: 17px; max-width: 36em; }
+.objetivo p + p { margin-top: var(--space-2); }
+.destaque { color: var(--white); font-weight: 400; box-shadow: inset 0 -0.45em 0 rgba(255, 255, 0, 0.18); }
 
 /* ── Tablet+ ── */
 @media (min-width: 720px) {
@@ -245,6 +261,9 @@ strong { font-weight: 700; }
 @media (min-width: 1000px) {
   .hero-grid { grid-template-columns: 1.6fr 1fr; }
   .hero-visual { display: flex; }
+  .objetivos { grid-template-columns: 1fr 1fr; column-gap: var(--space-6); row-gap: var(--space-7); }
+  .objetivo-largo { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-6); }
+  .objetivo-largo .num { grid-column: 1 / -1; }
   .footer-inner { flex-direction: row; align-items: center; justify-content: space-between; }
 }
 
@@ -255,4 +274,5 @@ strong { font-weight: 700; }
   .js .rolar.hero-in { transform: translateX(-50%); }
   .hero-visual img, .rolar::after { animation: none; }
   .btn, .btn-outline, .link { transition: none; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
 }
